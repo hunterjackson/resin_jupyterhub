@@ -5,11 +5,10 @@ RUN apt-get update && apt-get install -y build-essential libffi-dev freetds-dev 
        npm install -g configurable-http-proxy && \
        pip install --upgrade pip cython setuptools ipykernel && \
        pip3 install --upgrade pip setuptools cython && \
-       mkdir -p /etc/jupyterhub
+       mkdir -p /etc/jupyterhub && mkdir -p /data/notebooks
 RUN    pip3 install --upgrade notebook jupyterhub jupyterlab oauthenticator && \
        jupyter serverextension enable --py jupyterlab --sys-prefix
 COPY ./jupyterhub_config.py /etc/jupyterhub/jupyterhub_config.py
-RUN    mkdir -p /data/.virtualenvs && chmod 777 -R /data/.virtualenvs
 
 WORKDIR /
 EXPOSE 80

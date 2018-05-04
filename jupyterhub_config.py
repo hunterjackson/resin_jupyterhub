@@ -25,7 +25,6 @@ if os.environ.get('RESIN_DEVICE_UUID'):
                 
         exit(1)
 
-
     c.JupyterHub.authenticator_class = LocalGoogleOAuthenticator
     
     c.LocalGoogleOAuthenticator.hosted_domain = 'sightmachine.com'
@@ -39,4 +38,7 @@ else:
     exit(1)
 
 c.Spawner.default_url = '/lab'  # sets to launch jupyterlab instead of notebooks
+c.Spawner.notebook_dir = '/'
+# c.LocalProcessSpawner.default_url = '/data/notebooks'
+
 
