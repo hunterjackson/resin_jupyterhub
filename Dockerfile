@@ -13,5 +13,5 @@ RUN    mkdir -p /data/.virtualenvs && chmod 777 -R /data/.virtualenvs
 
 WORKDIR /
 EXPOSE 80
-#CMD jupyterhub --ip '*' --port=80 -f /etc/jupyterhub/jupyterhub_config.py --debug
-CMD sleep infinity
+CMD jupyterhub --ip '*' --port=80 -f /etc/jupyterhub/jupyterhub_config.py --debug
+#CMD sleep infinity
