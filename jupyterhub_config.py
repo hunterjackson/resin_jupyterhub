@@ -37,6 +37,7 @@ else:
     print('#' * 25 +  '\n'* 5 + '''This container instance of jupyterhub is only for resin devices!''' + '\n'* 5 + '#' * 25)
     exit(1)
 
+c.LocalGoogleOAuthenticator.auto_login = True
 c.Spawner.default_url = '/lab'  # sets to launch jupyterlab instead of notebooks
 c.Spawner.notebook_dir = '/'
 # c.LocalProcessSpawner.default_url = '/data/notebooks'
