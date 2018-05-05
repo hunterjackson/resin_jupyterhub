@@ -30,7 +30,7 @@ if os.environ.get('RESIN_DEVICE_UUID'):
     c.LocalGoogleOAuthenticator.hosted_domain = 'sightmachine.com'
     c.LocalGoogleOAuthenticator.login_service = 'Sight Machine'
     
-    c.LocalGoogleOAuthenticator.add_user_cmd = ['adduser', '--system', '-q', '--gecos', '""', '--disabled-password', '--home', '/data/home/{username}', '--ingroup', 'sudo']
+    c.LocalGoogleOAuthenticator.add_user_cmd = ['adduser', '--system', '-q', '--gecos', '""', '--disabled-password', '--ingroup', 'sudo']
     c.LocalGoogleOAuthenticator.create_system_users = True
     c.LocalGoogleOAuthenticator.oauth_callback_url = callback_uri
 else:
@@ -42,4 +42,9 @@ c.Spawner.default_url = '/lab'  # sets to launch jupyterlab instead of notebooks
 c.Spawner.notebook_dir = '/'
 # c.LocalProcessSpawner.default_url = '/data/notebooks'
 
+from os import mkdir 
+def setup_user_dirs(spawner):
+    username = spawner.user.name
+    os.mkdir('/data/home/' + username)
 
+c.Spawner.pre_spawn_hook = setup_user_dirs 
