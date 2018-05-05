@@ -30,7 +30,7 @@ if os.environ.get('RESIN_DEVICE_UUID'):
     c.LocalGoogleOAuthenticator.hosted_domain = 'sightmachine.com'
     c.LocalGoogleOAuthenticator.login_service = 'Sight Machine'
     
-    c.LocalGoogleOAuthenticator.add_user_cmd = ['adduser', '--system', '-q', '--gecos', '""', '--disabled-password', '--ingroup', 'sudo']
+    c.LocalGoogleOAuthenticator.add_user_cmd = ['adduser', '--system', '-q', '--gecos', '""', '--disabled-password','--shell', '/bin/bash', '--ingroup', 'sudo']
     c.LocalGoogleOAuthenticator.create_system_users = True
     c.LocalGoogleOAuthenticator.oauth_callback_url = callback_uri
 else:
@@ -43,6 +43,7 @@ c.Spawner.notebook_dir = '/'
 # c.LocalProcessSpawner.default_url = '/data/notebooks'
 
 from os import mkdir 
+import shutil
 def setup_user_dirs(spawner):
     username = spawner.user.name
     try:
@@ -55,5 +56,13 @@ def setup_user_dirs(spawner):
             os.chmod(os.path.join(root, momo), 0o777)
         for momo in files:
             os.chmod(os.path.join(root, momo), 0o777)
+    
+    for root, dirs, files in os.walk('/data/home/' + username):  
+        shutil.chown(root, user=username, group='sudo')
+        for momo in dirs:  
+            shutil.chown(os.path.join(root, momo), user=username, group='sudo')
+        for momo in files:
+            os.chmod(os.path.join(root, momo), user=username, group='sudo')
+
 
 c.Spawner.pre_spawn_hook = setup_user_dirs 
