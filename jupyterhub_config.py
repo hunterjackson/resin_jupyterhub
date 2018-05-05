@@ -50,4 +50,10 @@ def setup_user_dirs(spawner):
     except FileExistsError:
         pass
 
+    for root, dirs, files in os.walk('/data/home'):  
+        for momo in dirs:  
+            os.chown(os.path.join(root, momo), 0o777)
+        for momo in files:
+            os.chown(os.path.join(root, momo), 0o777)
+
 c.Spawner.pre_spawn_hook = setup_user_dirs 
