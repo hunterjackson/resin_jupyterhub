@@ -45,6 +45,9 @@ c.Spawner.notebook_dir = '/'
 from os import mkdir 
 def setup_user_dirs(spawner):
     username = spawner.user.name
-    os.mkdir('/data/home/' + username)
+    try:
+        os.mkdir('/data/home/' + username)
+    except FileExistsError:
+        pass
 
 c.Spawner.pre_spawn_hook = setup_user_dirs 
