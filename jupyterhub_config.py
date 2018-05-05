@@ -42,7 +42,7 @@ c.Spawner.default_url = '/lab'  # sets to launch jupyterlab instead of notebooks
 c.Spawner.notebook_dir = '/'
 # c.LocalProcessSpawner.default_url = '/data/notebooks'
 
-from os import mkdir 
+import os 
 import shutil
 def setup_user_dirs(spawner):
     username = spawner.user.name
@@ -62,7 +62,7 @@ def setup_user_dirs(spawner):
         for momo in dirs:  
             shutil.chown(os.path.join(root, momo), user=username, group='sudo')
         for momo in files:
-            os.chmod(os.path.join(root, momo), user=username, group='sudo')
+            shutil.chown(os.path.join(root, momo), user=username, group='sudo')
 
 
 c.Spawner.pre_spawn_hook = setup_user_dirs 
