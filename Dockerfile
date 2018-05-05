@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y build-essential libffi-dev freetds-dev 
        pip3 install --upgrade pip setuptools cython && \
        mkdir -p /etc/jupyterhub && mkdir -p /data/notebooks
 RUN    pip3 install --upgrade notebook jupyterhub jupyterlab oauthenticator && \
-       jupyter serverextension enable --py jupyterlab --sys-prefix
+       jupyter serverextension enable --py jupyterlab --sys-prefix && \
+       mkdir -p /data/home/
 COPY ./jupyterhub_config.py /etc/jupyterhub/jupyterhub_config.py
 
 WORKDIR /

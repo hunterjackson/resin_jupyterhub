@@ -30,7 +30,7 @@ if os.environ.get('RESIN_DEVICE_UUID'):
     c.LocalGoogleOAuthenticator.hosted_domain = 'sightmachine.com'
     c.LocalGoogleOAuthenticator.login_service = 'Sight Machine'
     
-    c.LocalGoogleOAuthenticator.add_user_cmd = ['adduser', '--system', '-q', '--gecos', '""', '--disabled-password', '--ingroup', 'sudo']
+    c.LocalGoogleOAuthenticator.add_user_cmd = ['adduser', '--system', '-q', '--gecos', '""', '--disabled-password', '--home', '/data/home/{username}', '--ingroup', 'sudo']
     c.LocalGoogleOAuthenticator.create_system_users = True
     c.LocalGoogleOAuthenticator.oauth_callback_url = callback_uri
 else:
